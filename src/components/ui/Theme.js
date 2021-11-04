@@ -14,11 +14,6 @@ const theme = createTheme({
           main: orange[500]
         },
     },
-    typography: {
-      h3:{
-        fontWeight: 300
-      },
-    }
   });
 
   export default theme;
