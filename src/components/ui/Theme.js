@@ -14,6 +14,14 @@ const theme = createTheme({
           main: orange[500]
         },
     },
+    typography: {
+      tab: {
+        fontFamily: "Raleway",
+        textTransform: "none",
+        fontWeight: 700,
+        fontSize: "1rem"
+      }
+    }
   });
 
   export default theme;
