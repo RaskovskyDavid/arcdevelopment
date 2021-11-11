@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
@@ -98,9 +100,21 @@ function ElevationScroll(props) {
 export default function Header(props){
   const classes = useStyles();
   const [value, setValue] = useState(0);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen]  = useState(false);
+
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+    setOpen(true);
+  };
+
+  const handleClose = (e) => {
+    setAnchorEl(null);
+    setOpen(false);
+  };
   const handleChange = (e, value) => {
     setValue(value);
-  }
+  };
   useEffect(() => {
     if (window.location.pathname === "/" && value !== 0)
     {
@@ -137,7 +151,16 @@ export default function Header(props){
                <Tabs value={value} onChange={handleChange} 
                 className={classes.tabContainer}>
                  <Tab className={classes.tab} label="Home" component={Link} to="/" />
-                 <Tab className={classes.tab} label="Services" component={Link} to="/Services" />
+                 <Tab 
+                 aria-owns={anchorEl ? "simple-menu" : undefined}
+                 aria-haspopup={anchorEl ? "true" : undefined}
+                 onMouseOver={(e) => handleClick(e)}
+                 
+                 className={classes.tab}  
+                 label="Services"
+                 component={Link}
+                  to="/Services" />
+
                  <Tab className={classes.tab} label="The Revolution" component={Link} to="/revolution" />
                  <Tab className={classes.tab} label="About Us" component={Link} to="/about" />
                  <Tab className={classes.tab} label="Contact Us" component={Link} to="/contact" />
@@ -147,6 +170,24 @@ export default function Header(props){
                className={classes.buttonstyle} disableElevation>
                 Free Estimate
               </Button>
+              <Menu id="simple-menu"
+                MenuListProps={{onMouseLeave: handleClose}}
+               anchorEl={anchorEl} open={open}
+              onClose={handleClose} >
+              <MenuItem onClick={() => {handleClose(); setValue(1)}}
+              component={Link} to="/services" >
+                Services
+              </MenuItem>
+              <MenuItem onClick={() => {handleClose(); setValue(1)}} component={Link} to="/customsoftware" >
+                Custom Software Development
+              </MenuItem>
+              <MenuItem onClick={() => {handleClose(); setValue(1)}}  component={Link} to="/mobileapps"  >
+                Mobile App Development
+              </MenuItem>
+              <MenuItem onClick={() => {handleClose(); setValue(1)}}  component={Link} to="/websites"  >
+                Web Site Development
+              </MenuItem>
+              </Menu>
             </Toolbar>
         </AppBar>
         </ElevationScroll>
