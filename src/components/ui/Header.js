@@ -29,40 +29,6 @@ function ElevationScroll(props) {
   } 
   const useStyles = makeStyles( theme => (
     {
-      root: {      
-        toolbarMargin:{
-          ...theme.mixins.toolbarMargin,
-          marginBottom: "3em"
-        },
-        logo:{
-          height: "8em"
-        },
-        logoContainer: {
-          padding: 0,
-          "&:hover":{
-            backgroundColor:"transparent"
-          }
-        },
-        tabContainer: {
-          marginLeft: "auto",
-          indicatorColor: "white"
-        },
-        tab: {
-          ...theme.typography.tab,
-          minWidth: 10,
-          marginLeft: "25px",
-          color: "white"
-        
-        },
-        buttonstyle:{
-          ...theme.typography.estimate,
-          borderRadius: "50px",
-          marginLeft: "50px",
-          height: "45px",
-          color:"white"
-        }
-    },
-  
     toolbarMargin:{
       ...theme.mixins.toolbarMargin,
       marginBottom: "3em"
@@ -93,6 +59,19 @@ function ElevationScroll(props) {
       marginLeft: "50px",
       height: "45px",
       color:"white"
+    },
+    menuStyle:{
+      backgroundColor: theme.palette.common.blue,
+      color: "white",
+      borderRadius: "0px"
+    },
+    menuItemStyle:{
+      ...theme.typography.tab,
+      opacity:0.7,
+      "&:hover":{
+        opacity: 1
+      }
+
     }
     }
   ));
@@ -171,20 +150,32 @@ export default function Header(props){
                 Free Estimate
               </Button>
               <Menu id="simple-menu"
+                classes={{paper: classes.menuStyle}}
                 MenuListProps={{onMouseLeave: handleClose}}
-               anchorEl={anchorEl} open={open}
-              onClose={handleClose} >
-              <MenuItem onClick={() => {handleClose(); setValue(1)}}
-              component={Link} to="/services" >
+                anchorEl={anchorEl} 
+                open={open}
+                elevation={0}
+                onClose={handleClose} >
+              <MenuItem 
+              onClick={() => {handleClose(); setValue(1)}}
+              component={Link} 
+              to="/services" 
+              classes={{root: classes.menuItemStyle}} >
                 Services
               </MenuItem>
-              <MenuItem onClick={() => {handleClose(); setValue(1)}} component={Link} to="/customsoftware" >
+              <MenuItem
+              classes={{root: classes.menuItemStyle}}
+               onClick={() => {handleClose(); setValue(1)}} component={Link} to="/customsoftware" >
                 Custom Software Development
               </MenuItem>
-              <MenuItem onClick={() => {handleClose(); setValue(1)}}  component={Link} to="/mobileapps"  >
+              <MenuItem 
+              classes={{root: classes.menuItemStyle}}
+              onClick={() => {handleClose(); setValue(1)}}  component={Link} to="/mobileapps"  >
                 Mobile App Development
               </MenuItem>
-              <MenuItem onClick={() => {handleClose(); setValue(1)}}  component={Link} to="/websites"  >
+              <MenuItem 
+              classes={{root: classes.menuItemStyle}}
+              onClick={() => {handleClose(); setValue(1)}}  component={Link} to="/websites"  >
                 Web Site Development
               </MenuItem>
               </Menu>
