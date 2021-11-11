@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './ui/Header.js';
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './ui/Theme.js';
 import {
   BrowserRouter as Router,
