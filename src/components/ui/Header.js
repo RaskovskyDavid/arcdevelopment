@@ -112,7 +112,9 @@ function ElevationScroll(props) {
     },
     drawerItemEstimate:{
       backgroundColor: theme.palette.common.orange
-
+    },
+    drawerItemSelectedStyle:{
+      opacity: 1
     }
     }
   ));
@@ -286,26 +288,54 @@ export default function Header(props){
         onOpen={() => setOpenDrware(true)} >
 
         <List disablePadding>
-          <ListItem onClick={()=> setOpenDrware(false)} divider button component={Link} to="/">
-            <ListItemText className={classes.drawerItem} disableTypography>Home</ListItemText>
+          <ListItem selected={value === 0}
+           onClick={()=> {setOpenDrware(false); setValue(0)}} 
+           divider button component={Link} to="/">
+            <ListItemText
+             className={value === 0 ? 
+              [classes.drawerItem, classes.drawerItemSelectedStyle]
+              : classes.drawerItem}
+              disableTypography>Home</ListItemText>
           </ListItem>
-          <ListItem onClick={()=> setOpenDrware(false)} divider button component={Link} to="/Services">
-            <ListItemText className={classes.drawerItem}  disableTypography>Services</ListItemText>
+          <ListItem selected={value === 1}
+           onClick={()=> {setOpenDrware(false) ; setValue(1)}} divider button component={Link} to="/Services">
+            <ListItemText 
+            className={value === 1 ? 
+              [classes.drawerItem, classes.drawerItemSelectedStyle]
+              : classes.drawerItem} 
+             disableTypography>Services</ListItemText>
           </ListItem>
-          <ListItem onClick={()=> setOpenDrware(false)} divider button component={Link} to="/revolution">
-            <ListItemText className={classes.drawerItem}  disableTypography>The Revolution</ListItemText>
+          <ListItem selected={value === 2} 
+          onClick={()=> {setOpenDrware(false) ; setValue(2)}} divider button component={Link} to="/revolution">
+            <ListItemText
+             className={value === 2 ? 
+              [classes.drawerItem, classes.drawerItemSelectedStyle]
+              : classes.drawerItem} 
+              disableTypography>The Revolution</ListItemText>
           </ListItem>
-          <ListItem onClick={()=> setOpenDrware(false)} divider button component={Link} to="/about">
-            <ListItemText className={classes.drawerItem}  disableTypography>About Us</ListItemText>
+          <ListItem selected={value === 3} 
+           onClick={()=> {setOpenDrware(false); setValue(3)}} divider button component={Link} to="/about">
+            <ListItemText 
+            className={value === 3 ? 
+              [classes.drawerItem, classes.drawerItemSelectedStyle]
+              : classes.drawerItem}  disableTypography>About Us</ListItemText>
           </ListItem>
-          <ListItem onClick={()=> setOpenDrware(false)} divider button component={Link} to="/contact">
-            <ListItemText className={classes.drawerItem}  disableTypography>Contact Us</ListItemText>
+          <ListItem  selected={value === 4} 
+          onClick={()=> {setOpenDrware(false); setValue(4)}} divider button component={Link} to="/contact">
+            <ListItemText 
+            className={value === 4 ? 
+              [classes.drawerItem, classes.drawerItemSelectedStyle]
+              : classes.drawerItem} 
+             disableTypography>Contact Us</ListItemText>
           </ListItem>
-          <ListItem 
+          <ListItem selected={value === 5} 
           className={classes.drawerItemEstimate}
-          onClick={()=> setOpenDrware(false)}
+          onClick={()=> {setOpenDrware(false); ; setValue(5)}}
            divider button component={Link} to="/estimate">
-            <ListItemText className={classes.drawerItem}  
+            <ListItemText 
+            className={value === 5 ? 
+              [classes.drawerItem, classes.drawerItemSelectedStyle]
+              : classes.drawerItem}  
             disableTypography>Free Estimate</ListItemText>
           </ListItem>
         </List>
