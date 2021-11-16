@@ -157,7 +157,11 @@ export default function Header(props){
   ]
   const routes = [
     {name: "Home", link: "/", activeIndex: 0}, 
-    {name: "Services", link: "/Services", activeIndex: 1},
+    {name: "Services", link: "/Services", activeIndex: 1,
+      ariaOwns: anchorEl ? "simple-menu" : undefined, 
+      ariapopup: anchorEl ? "true" : undefined ,
+      onMouseOver:(e) => handleClick(e)
+    },
     {name: "The Revolution", link: "/revolution", activeIndex: 2},
     {name: "About Us", link: "/about", activeIndex: 3}, 
     {name: "Contact Us", link: "/contact", activeIndex: 4}
@@ -184,21 +188,14 @@ export default function Header(props){
     <React.Fragment>
       <Tabs value={value} onChange={handleChange} 
                 className={classes.tabContainer}>
-                 <Tab className={classes.tab} label="Home" component={Link} to="/" />
-                 <Tab 
-                 aria-owns={anchorEl ? "simple-menu" : undefined}
-                 aria-haspopup={anchorEl ? "true" : undefined}
-                 onMouseOver={(e) => handleClick(e)}
+                {routes.map((route, index) =>(
+                  <Tab className={classes.tab} component={Link}
+                  to={route.link} label={route.name}
+                  aria-owns={route.ariaOwns}
+                  aria-haspopup={route.ariapopup}
+                  onMouseOver={route.onMouseOver} />
+                ))}                    
                  
-                 className={classes.tab}  
-                 label="Services"
-                 component={Link}
-                  to="/Services" />
-
-                 <Tab className={classes.tab} label="The Revolution" 
-                 component={Link} to="/revolution" />
-                 <Tab className={classes.tab} label="About Us" component={Link} to="/about" />
-                 <Tab className={classes.tab} label="Contact Us" component={Link} to="/contact" />
                </Tabs>
                <Button variant="contained" color="secondary" 
                component={Link} to="/estimate" 
@@ -241,46 +238,20 @@ export default function Header(props){
         onOpen={() => setOpenDrware(true)} >
 
         <List disablePadding>
-          <ListItem selected={value === 0}
-           onClick={()=> {setOpenDrware(false); setValue(0)}} 
-           divider button component={Link} to="/">
-            <ListItemText
-             className={value === 0 ? 
-              [classes.drawerItem, classes.drawerItemSelectedStyle]
-              : classes.drawerItem}
-              disableTypography>Home</ListItemText>
-          </ListItem>
-          <ListItem selected={value === 1}
-           onClick={()=> {setOpenDrware(false) ; setValue(1)}} divider button component={Link} to="/Services">
+        {routes.map(route => (
+          <ListItem divider button component={Link} to={route.link}
+          selected={value === route.activeIndex}
+           onClick={() => {setOpenDrware(false); setValue(route.activeIndex)}}>
             <ListItemText 
-            className={value === 1 ? 
-              [classes.drawerItem, classes.drawerItemSelectedStyle]
-              : classes.drawerItem} 
-             disableTypography>Services</ListItemText>
+            className={value === route.activeIndex ?
+            [classes.drawerItem, classes.drawerItemSelectedStyle]
+            : classes.drawerItem} 
+            disableTypography>
+              {route.name}
+            </ListItemText>
           </ListItem>
-          <ListItem selected={value === 2} 
-          onClick={()=> {setOpenDrware(false) ; setValue(2)}} divider button component={Link} to="/revolution">
-            <ListItemText
-             className={value === 2 ? 
-              [classes.drawerItem, classes.drawerItemSelectedStyle]
-              : classes.drawerItem} 
-              disableTypography>The Revolution</ListItemText>
-          </ListItem>
-          <ListItem selected={value === 3} 
-           onClick={()=> {setOpenDrware(false); setValue(3)}} divider button component={Link} to="/about">
-            <ListItemText 
-            className={value === 3 ? 
-              [classes.drawerItem, classes.drawerItemSelectedStyle]
-              : classes.drawerItem}  disableTypography>About Us</ListItemText>
-          </ListItem>
-          <ListItem  selected={value === 4} 
-          onClick={()=> {setOpenDrware(false); setValue(4)}} divider button component={Link} to="/contact">
-            <ListItemText 
-            className={value === 4 ? 
-              [classes.drawerItem, classes.drawerItemSelectedStyle]
-              : classes.drawerItem} 
-             disableTypography>Contact Us</ListItemText>
-          </ListItem>
+        ))}
+          
           <ListItem selected={value === 5} 
           className={classes.drawerItemEstimate}
           onClick={()=> {setOpenDrware(false); ; setValue(5)}}
