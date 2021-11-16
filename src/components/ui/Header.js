@@ -189,7 +189,8 @@ export default function Header(props){
       <Tabs value={value} onChange={handleChange} 
                 className={classes.tabContainer}>
                 {routes.map((route, index) =>(
-                  <Tab className={classes.tab} component={Link}
+                  <Tab key={`${route}${index}`}
+                  className={classes.tab} component={Link}
                   to={route.link} label={route.name}
                   aria-owns={route.ariaOwns}
                   aria-haspopup={route.ariapopup}
@@ -211,6 +212,7 @@ export default function Header(props){
                 onClose={handleClose} >
               {menuOptions.map((option, i) => (
                 <MenuItem 
+                keepMounted
                 key={option}
                 component={Link} 
                 classes={{root: classes.menuItemStyle}}
@@ -239,7 +241,9 @@ export default function Header(props){
 
         <List disablePadding>
         {routes.map(route => (
-          <ListItem divider button component={Link} to={route.link}
+          <ListItem
+          key={`${route}${route.activeIndex}`}
+           divider button component={Link} to={route.link}
           selected={value === route.activeIndex}
            onClick={() => {setOpenDrware(false); setValue(route.activeIndex)}}>
             <ListItemText 
