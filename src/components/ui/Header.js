@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
@@ -114,13 +114,18 @@ function ElevationScroll(props) {
       backgroundColor: theme.palette.common.orange
     },
     drawerItemSelectedStyle:{
-      opacity: 1
+      "& .MuiListItemText-root": {
+        opacity: 1
+      }
+    },
+    appbar:{
+      zIndex: theme.zIndex.modal + 1
     }
     }
   ));
 
 export default function Header(props){
-  const classes = useStyles();
+  const classes = useStyles(props);
   const theme = useTheme();
 
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -150,12 +155,13 @@ export default function Header(props){
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
-  const menuOptions = [
+  const menuOptions =useMemo( () => [
+    {name: "Services", link: "/Services", activeIndex: 1, selectedIndex: 0},
     {name: "Custom Software Development", link: "/customsoftware", activeIndex: 1, selectedIndex: 1},
     {name: "Mobile App Development", link: "/mobileapps", activeIndex: 1, selectedIndex: 2},
     {name: "Website Development", link: "/websites", activeIndex: 1, selectedIndex: 3} 
-  ]
-  const routes = [
+  ], []);
+  const routes =  useMemo( (anchorEl) =>[
     {name: "Home", link: "/", activeIndex: 0}, 
     {name: "Services", link: "/Services", activeIndex: 1,
       ariaOwns: anchorEl ? "simple-menu" : undefined, 
@@ -165,7 +171,7 @@ export default function Header(props){
     {name: "The Revolution", link: "/revolution", activeIndex: 2},
     {name: "About Us", link: "/about", activeIndex: 3}, 
     {name: "Contact Us", link: "/contact", activeIndex: 4}
-    ]
+    ],[]);
   useEffect(() => {
     [...menuOptions, ...routes].forEach(route => {
       switch (window.location.pathname){
@@ -204,6 +210,7 @@ export default function Header(props){
                 Free Estimate
               </Button>
               <Menu id="simple-menu"
+                style={{zIndex: 1302}}
                 classes={{paper: classes.menuStyle}}
                 MenuListProps={{onMouseLeave: handleClose}}
                 anchorEl={anchorEl} 
@@ -213,7 +220,7 @@ export default function Header(props){
               {menuOptions.map((option, i) => (
                 <MenuItem 
                 keepMounted
-                key={option}
+                key={`${option}`}
                 component={Link} 
                 classes={{root: classes.menuItemStyle}}
                 onClick={(event) => {handleMenuItemClick(event, i); handleClose(); setValue(1)}}
@@ -238,18 +245,17 @@ export default function Header(props){
         open={openDrawer} 
         onClose={() => setOpenDrware(false)}
         onOpen={() => setOpenDrware(true)} >
-
+        <div className={classes.toolbarMargin} />
         <List disablePadding>
         {routes.map(route => (
           <ListItem
           key={`${route}${route.activeIndex}`}
            divider button component={Link} to={route.link}
           selected={value === route.activeIndex}
+          classes={{selected: classes.drawerItemSelectedStyle}}
            onClick={() => {setOpenDrware(false); setValue(route.activeIndex)}}>
             <ListItemText 
-            className={value === route.activeIndex ?
-            [classes.drawerItem, classes.drawerItemSelectedStyle]
-            : classes.drawerItem} 
+            className={ classes.drawerItem} 
             disableTypography>
               {route.name}
             </ListItemText>
@@ -258,12 +264,10 @@ export default function Header(props){
           
           <ListItem selected={value === 5} 
           className={classes.drawerItemEstimate}
-          onClick={()=> {setOpenDrware(false); ; setValue(5)}}
+          onClick={()=> {setOpenDrware(false);  setValue(5)}}
            divider button component={Link} to="/estimate">
             <ListItemText 
-            className={value === 5 ? 
-              [classes.drawerItem, classes.drawerItemSelectedStyle]
-              : classes.drawerItem}  
+            className={ {root: classes.drawerItemEstimate, selected: classes.drawerItemSelectedStyle}}  
             disableTypography>Free Estimate</ListItemText>
           </ListItem>
         </List>
@@ -280,7 +284,7 @@ export default function Header(props){
     return(
       <React.Fragment>
         <ElevationScroll>
-        <AppBar position="fixed"  >
+        <AppBar className={classes.appbar} position="fixed"  >
             <Toolbar disableGutters>
             <Button component={Link} to="/" 
             disableRipple="true"
@@ -296,6 +300,6 @@ export default function Header(props){
         <div className={classes.toolbarMargin} />
         
         </React.Fragment>
-    )
+    );
 
 }
