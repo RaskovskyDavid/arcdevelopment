@@ -8,6 +8,9 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+
+import LandingPage from '../components/LandingPage.js';
+
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [value, setValue] = useState(0);
@@ -19,7 +22,9 @@ function App() {
       selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} 
       />
       <Switch>
-        <Route exact path="/" component={() => <div style={{height:"800px"}}>Home</div>} />
+        <Route exact 
+        path="/"
+         component={LandingPage} />
         <Route exact path="/Services" component={() => <div>Services</div>} />
         <Route exact path="/customsoftware" component={() => <div>Customsoftware</div>} />
         <Route exact path="/mobileapps" component={() => <div>mobileapps</div>} />
