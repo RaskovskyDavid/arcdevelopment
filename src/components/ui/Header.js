@@ -132,10 +132,12 @@ export default function Header(props){
 
   const [openDrawer, setOpenDrware] = useState(false);
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
-  const [value, setValue] = useState(0);
+  // change to work in to app.js
+  // const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu]  = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  // change to work into app.js
+  // const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
@@ -145,7 +147,7 @@ export default function Header(props){
   const handleMenuItemClick = (e, i) => {
     setAnchorEl(null);
     setOpenMenu(false);
-    setSelectedIndex(i);
+    props.setSelectedIndex(i);
   };
 
   const handleClose = (e) => {
@@ -153,7 +155,7 @@ export default function Header(props){
     setOpenMenu(false);
   };
   const handleChange = (e, newValue) => {
-    setValue(newValue);
+    props.setValue(newValue);
   };
   const menuOptions =useMemo( () => [
     {name: "Services", link: "/Services", activeIndex: 1, selectedIndex: 0},
@@ -176,10 +178,10 @@ export default function Header(props){
     [...menuOptions, ...routes].forEach(route => {
       switch (window.location.pathname){
         case `${route.link}`:
-          if (value !== route.activeIndex){
-            setValue(route.activeIndex)
-            if (route.selectedIndex && route.selectedIndex !== selectedIndex){
-              setSelectedIndex(route.selectedIndex)
+          if (props.value !== route.activeIndex){
+            props.setValue(route.activeIndex)
+            if (route.selectedIndex && route.selectedIndex !== props.selectedIndex){
+              props.setSelectedIndex(route.selectedIndex)
             }
           }
           break;
@@ -188,11 +190,11 @@ export default function Header(props){
       }
     })
     
-  }, [value, menuOptions, selectedIndex, routes]);
+  }, [props.value, menuOptions, props.selectedIndex, routes, props]);
 
   const tabs = (
     <React.Fragment>
-      <Tabs value={value} onChange={handleChange} 
+      <Tabs value={props.value} onChange={handleChange} 
                 className={classes.tabContainer}>
                 {routes.map((route, index) =>(
                   <Tab key={`${route}${index}`}
@@ -223,8 +225,9 @@ export default function Header(props){
                 key={`${option}`}
                 component={Link} 
                 classes={{root: classes.menuItemStyle}}
-                onClick={(event) => {handleMenuItemClick(event, i); handleClose(); setValue(1)}}
-                selected={i === selectedIndex && value === 1}
+                onClick={(event) => {handleMenuItemClick(event, i); handleClose(); 
+                props.setValue(1)}}
+                selected={i === props.selectedIndex && props.value === 1}
                 to={option.link}>
                 {
                   option.name
@@ -251,9 +254,9 @@ export default function Header(props){
           <ListItem
           key={`${route}${route.activeIndex}`}
            divider button component={Link} to={route.link}
-          selected={value === route.activeIndex}
+          selected={props.value === route.activeIndex}
           classes={{selected: classes.drawerItemSelectedStyle}}
-           onClick={() => {setOpenDrware(false); setValue(route.activeIndex)}}>
+           onClick={() => {setOpenDrware(false); props.setValue(route.activeIndex)}}>
             <ListItemText 
             className={ classes.drawerItem} 
             disableTypography>
@@ -262,9 +265,9 @@ export default function Header(props){
           </ListItem>
         ))}
           
-          <ListItem selected={value === 5} 
+          <ListItem selected={props.value === 5} 
           className={classes.drawerItemEstimate}
-          onClick={()=> {setOpenDrware(false);  setValue(5)}}
+          onClick={()=> {setOpenDrware(false);  props.setValue(5)}}
            divider button component={Link} to="/estimate">
             <ListItemText 
             className={ {root: classes.drawerItemEstimate, selected: classes.drawerItemSelectedStyle}}  
@@ -289,7 +292,7 @@ export default function Header(props){
             <Button component={Link} to="/" 
             disableRipple="true"
             className={classes.logoContainer} 
-             onClick={() => setValue(0) } >
+             onClick={() => props.setValue(0) } >
                <img alt="company logo" className={classes.logo} src={logo} />
                </Button>
                {matches ? drawer : tabs}
