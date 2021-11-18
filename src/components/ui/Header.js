@@ -79,7 +79,10 @@ function ElevationScroll(props) {
       borderRadius: "50px",
       marginLeft: "50px",
       height: "45px",
-      color:"white"
+      color:"white",
+      "&:hover": {
+        backgroundColor: theme.palette.secondary.light
+      }
     },
     menuStyle:{
       backgroundColor: theme.palette.common.blue,
