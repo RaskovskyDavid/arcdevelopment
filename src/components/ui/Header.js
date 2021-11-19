@@ -163,7 +163,7 @@ export default function Header(props){
   const menuOptions =useMemo( () => [
     {name: "Services", link: "/Services", activeIndex: 1, selectedIndex: 0},
     {name: "Custom Software Development", link: "/customsoftware", activeIndex: 1, selectedIndex: 1},
-    {name: "Mobile App Development", link: "/mobileapps", activeIndex: 1, selectedIndex: 2},
+    {name: "iOS/Android App Development", link: "/mobileapps", activeIndex: 1, selectedIndex: 2},
     {name: "Website Development", link: "/websites", activeIndex: 1, selectedIndex: 3} 
   ], []);
   const routes =  useMemo( (anchorEl) =>[
@@ -197,8 +197,10 @@ export default function Header(props){
 
   const tabs = (
     <React.Fragment>
-      <Tabs value={props.value} onChange={handleChange} 
-                className={classes.tabContainer}>
+      <Tabs value={props.value} 
+      onChange={handleChange} 
+                className={classes.tabContainer}
+                indicatorColor="primary">
                 {routes.map((route, index) =>(
                   <Tab key={`${route}${index}`}
                   className={classes.tab} component={Link}
