@@ -1,6 +1,10 @@
 import { createTheme } from '@material-ui/core/styles';
 import orange from '@material-ui/core/colors/orange';
 import blue from '@material-ui/core/colors/blue';
+
+const arcBlue ="#0B72B9";
+const arcOrange = "#FFBA60";
+const arcGrey = "#868686"
 const theme = createTheme({
     palette: {
       common: {
@@ -11,7 +15,7 @@ const theme = createTheme({
           main: blue[500]
         },
       secondary: {
-          main: orange[500]
+          main: arcOrange
         },
     },
     typography: {
@@ -39,11 +43,25 @@ const theme = createTheme({
         color: blue[500],
         fontWeight: 700
       },
+      subtitle1: {
+        fontSize:"1.75rem",
+        fontWeight: 300,
+        color: `${arcGrey}`,
+      },
       estimate:{
         fontFamily: "Pacifico",
         fontSize: "1rem",
         textTransform: "none",
         color:"white"
+      },
+      learnButton: {
+          borderColor: arcBlue,
+          color: arcBlue,
+          borderwidth: 2,
+          borderRadius: 50,
+          fontFamily: "Roboto",
+          fontWeight: "bold",
+          textTransform: "none"
       }
     }
   });
