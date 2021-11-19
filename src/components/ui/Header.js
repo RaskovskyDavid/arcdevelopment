@@ -134,7 +134,7 @@ export default function Header(props){
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const [openDrawer, setOpenDrware] = useState(false);
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const matches = useMediaQuery(theme.breakpoints.down("md"));
   // change to work in to app.js
   // const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
