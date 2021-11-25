@@ -24,7 +24,10 @@ function App() {
       <Switch>
         <Route exact 
         path="/"
-         component={LandingPage} />
+         render={(props) => <LandingPage
+         {...props }
+         setValue={setValue} 
+         setSelectedIndex={setSelectedIndex} />} />
         <Route exact path="/Services" component={() => <div>Services</div>} />
         <Route exact path="/customsoftware" component={() => <div>Customsoftware</div>} />
         <Route exact path="/mobileapps" component={() => <div>mobileapps</div>} />
