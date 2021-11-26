@@ -9,7 +9,8 @@ import {
   Route
 } from "react-router-dom";
 
-import LandingPage from '../components/LandingPage.js';
+import LandingPage from './LandingPage.js';
+import Services from './Services'
 
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -28,7 +29,13 @@ function App() {
          {...props }
          setValue={setValue} 
          setSelectedIndex={setSelectedIndex} />} />
-        <Route exact path="/Services" component={() => <div>Services</div>} />
+         <Route exact 
+        path="/Services"
+         render={(props) => <Services
+         {...props }
+         setValue={setValue} 
+         setSelectedIndex={setSelectedIndex} />} />
+        
         <Route exact path="/customsoftware" component={() => <div>Customsoftware</div>} />
         <Route exact path="/mobileapps" component={() => <div>mobileapps</div>} />
         <Route exact path="/websites" component={() => <div>websites</div>} />
