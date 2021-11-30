@@ -53,6 +53,11 @@ const theme = createTheme({
         fontWeight: 300,
         color: "white"
       },
+      body1:{
+        fontSize:"1.25rem",
+        color: arcGrey,
+        fontWeight:300
+      },
       estimate:{
         fontFamily: "Pacifico",
         fontSize: "1rem",

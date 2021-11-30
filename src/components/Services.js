@@ -5,8 +5,8 @@ import { Grid } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { useMediaQuery } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+// import Card from '@material-ui/core/Card';
+// import CardContent from '@material-ui/core/CardContent';
 
 import ButtonArrow from "./ui/ButtonArrow";
 import customSoftwareIcon from '../assets/Custom Software Icon.svg';
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     serviceContainer: {
-        marginTop:"12em",
+        marginTop:"10em",
         [theme.breakpoints.down("xs")]: {
             padding: "25"
         }
@@ -51,11 +51,20 @@ export default function Services(props){
 
     return (
         <Grid container direction="column">
+        <Grid item style={{marginLeft: matchesSM ? "0" : "5em", marginTop: matchesSM ? "1em" : "2em"}}>
+            <Typography  align={matchesSM ? "center" : undefined } variant="h2"
+             gutterBottom >
+                Services
+            </Typography>
+         </Grid>
         <Grid item > {/*-----iOS/Android Block -----*/}
                 <Grid container direction="row"
                 justify={matchesSM ? "center" : "flex-end"}
-                 className={classes.serviceContainer}>
-                    <Grid item style={{ textAlign: matchesSM ? "center": undefined}}>
+                 className={classes.serviceContainer}
+                 style={{marginTop: matchesSM ? "1em" : "5em"}} >
+                    <Grid item 
+                    style={{ textAlign: matchesSM ? "center": undefined,
+                            width: matchesSM ? undefined : "35em" }}>
                         <Typography variant="h4">
                             iOS/Android App Development
                         </Typography>
@@ -75,7 +84,7 @@ export default function Services(props){
                         </Button>
                     </Grid>
                     <Grid item style={{marginRight: matchesSM ? 0 : "5em"}}>
-                        <img className={classes.icon} alt="mobile phone icon" src={mobileAppsIcon} />
+                        <img width="250em" className={classes.icon} alt="mobile phone icon" src={mobileAppsIcon} />
                     </Grid>
                 </Grid>
 
@@ -103,7 +112,7 @@ export default function Services(props){
                         </Button>
                     </Grid>
                     <Grid item>
-                        <img className={classes.icon} alt="custom software icon" src={customSoftwareIcon} />
+                        <img width="250em" className={classes.icon} alt="custom software icon" src={customSoftwareIcon} />
                     </Grid>
                 </Grid>
 
@@ -113,8 +122,10 @@ export default function Services(props){
             <Grid item > {/*----- Website  Block -----*/}
                 <Grid container direction="row"
                 justify={matchesSM ? "center" : "flex-end"}
-                 className={classes.serviceContainer}>
-                    <Grid item style={{ textAlign: matchesSM ? "center": undefined}}>
+                 className={classes.serviceContainer}
+                 style={{marginBottom: "10em"}}>
+                    <Grid item style={{ textAlign: matchesSM ? "center": undefined,
+                                    width: matchesSM ? undefined : "35em"}}>
                         <Typography variant="h4">
                             Website Development
                         </Typography>
@@ -133,7 +144,9 @@ export default function Services(props){
                         </Button>
                     </Grid>
                     <Grid item style={{marginRight: matchesSM ? 0 : "5em"}}>
-                        <img className={classes.icon} alt="website icon" src={websiteIcon} />
+                        <img width="250em"
+                        className={classes.icon} alt="website icon" 
+                        src={websiteIcon} />
                     </Grid>
                 </Grid>
 
